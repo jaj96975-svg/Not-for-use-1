@@ -126,8 +126,19 @@ app.get("/stats/channel", async (req, res) => {
   res.json(r.data.items[0].statistics);
 });
 
+app.get("/auth", (req, res) => {
+  const url = oauth2Client.generateAuthUrl({
+    access_type: "offline",
+    scope: ["https://www.googleapis.com/auth/youtube.force-ssl"],
+    prompt: "consent"
+  });
+  res.redirect(url);
+});
+
+
 /* ====== START ====== */
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("🔥 Backend running on port " + PORT);
 });
+
